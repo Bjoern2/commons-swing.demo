@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<jnlp codebase="https://demo.commons-swing.googlecode.com/git" spec="1.0+">
+	<information>
+		<title>Commons Swing Demo</title>
+		<vendor>Bjoern Schmitz</vendor>
+	</information>
+	<update check="always"/>
+	<resources>
+		<j2se version="1.6+"/>
+		<jar href="demo.jar" main="true"/>
+	</resources>
+	<application-desc main-class="com.googlecode.commons.swing.demo.DemoApp" />
+</jnlp>
+
