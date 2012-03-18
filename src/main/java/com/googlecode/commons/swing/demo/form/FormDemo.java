@@ -17,13 +17,18 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.JToolBar;
 
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
+
 import com.googlecode.commons.swing.binding.Binding;
 import com.googlecode.commons.swing.binding.Bindings;
 import com.googlecode.commons.swing.component.FieldNotifier;
 import com.googlecode.commons.swing.component.FormNotifier;
 import com.googlecode.commons.swing.demo.entity.Customer;
 import com.googlecode.commons.swing.demo.entity.Gender;
+import com.googlecode.commons.swing.demo.i18n.I18N;
 import com.googlecode.commons.swing.form.FormPanel;
+import com.googlecode.commons.swing.lists.I18NListCellRenderer;
 import com.googlecode.commons.swing.util.SizeUtils;
 import com.googlecode.commons.swing.validate.EMailAddressValidator;
 import com.googlecode.commons.swing.validate.NotEmptyValidator;
@@ -42,6 +47,9 @@ public class FormDemo extends JPanel {
 	private FieldNotifier notFirstname;
 	
 	private JTextField txtLastname;
+	
+	private JTextField txtAddress1;
+	private FieldNotifier notAddress1;
 	
 	private JTextField txtEMail;
 	private FieldNotifier notEMail;
@@ -75,13 +83,18 @@ public class FormDemo extends JPanel {
 		
 		txtFirstname = new JTextField();
 		txtFirstname.setName("First name");
-		SizeUtils.setAllWidths(txtFirstname, 200);
+//		SizeUtils.setAllWidths(txtFirstname, 200);
 		notFirstname = new FieldNotifier();
 		panForm.addField("First name:", txtFirstname, notFirstname);
 		
 		txtLastname = new JTextField();
 		txtLastname.setName("Last name");
 		panForm.addField("Last name:", txtLastname);
+		
+		txtAddress1 = new JTextField();
+		txtAddress1.setName("Street");
+		notAddress1 = new FieldNotifier();
+		panForm.addField("Street:", txtAddress1, notAddress1);
 		
 		txtEMail = new JTextField();
 		txtEMail.setName("E-Mail");
@@ -90,18 +103,7 @@ public class FormDemo extends JPanel {
 		
 		cmbGender = new JComboBox(Gender.values());
 		cmbGender.setName("Gender");
-		cmbGender.setRenderer(new DefaultListCellRenderer() {
-			public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
-				if (value == Gender.MALE) {
-					value = "Male";
-				} else if (value == Gender.FEMALE) {
-					value = "Female";
-				} else if (value == Gender.UNKNOWN) {
-					value = "Unknown";
-				} 
-				return super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
-			}
-		});
+		cmbGender.setRenderer(new I18NListCellRenderer(I18N.getInstance(), "gender_"));
 		notGender = new FieldNotifier();
 		panForm.addField("Gender:", cmbGender, notGender);
 		
@@ -143,6 +145,7 @@ public class FormDemo extends JPanel {
 		bindings = new Bindings<Customer>();
 		bindings.addBinding(new Binding(txtFirstname, "firstName"));
 		bindings.addBinding(new Binding(txtLastname, "lastName"));
+		bindings.addBinding(new Binding(txtAddress1, "address.address1"));
 		bindings.addBinding(new Binding(txtEMail, "eMailAddress"));
 		bindings.addBinding(new Binding(cmbGender, "gender"));
 		bindings.addBinding(new Binding(chkNewsletter, "newsletter"));
@@ -150,7 +153,8 @@ public class FormDemo extends JPanel {
 	}
 	
 	private void onSave() {
-		JOptionPane.showMessageDialog(this, bindings.getModel());
+		String message = ToStringBuilder.reflectionToString(bindings.getModel(), ToStringStyle.MULTI_LINE_STYLE);
+		JOptionPane.showMessageDialog(this, message);
 	}
 	
 }

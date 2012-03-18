@@ -12,6 +12,8 @@ public class Customer {
 	private String eMailAddress;
 	private Gender gender; // = Gender.UNKNOWN;
 	private boolean newsletter;
+	
+	private Address address;
 
 	public long getId() {
 		return id;
@@ -56,6 +58,14 @@ public class Customer {
 		c1.setFirstName("Max");
 		c1.setLastName("Mustermann");
 		c1.seteMailAddress("commons-swing@googlecode.com");
+		
+		Address a = new Address();
+		a.setId(1L);
+		a.setAddress1("Musterstraße 1");
+		a.setCity("Musterstadt");
+		a.setZip("12345");
+		c1.setAddress(a);
+		
 		return c1;
 	}
 
@@ -73,6 +83,14 @@ public class Customer {
 
 	public void setNewsletter(boolean newsletter) {
 		this.newsletter = newsletter;
+	}
+
+	public Address getAddress() {
+		return address;
+	}
+
+	public void setAddress(Address address) {
+		this.address = address;
 	}
 	
 	
