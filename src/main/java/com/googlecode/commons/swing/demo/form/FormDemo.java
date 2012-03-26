@@ -2,15 +2,12 @@ package com.googlecode.commons.swing.demo.form;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.DefaultListCellRenderer;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
-import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -29,7 +26,6 @@ import com.googlecode.commons.swing.demo.entity.Gender;
 import com.googlecode.commons.swing.demo.i18n.I18N;
 import com.googlecode.commons.swing.form.FormPanel;
 import com.googlecode.commons.swing.lists.I18NListCellRenderer;
-import com.googlecode.commons.swing.util.SizeUtils;
 import com.googlecode.commons.swing.validate.EMailAddressValidator;
 import com.googlecode.commons.swing.validate.NotEmptyValidator;
 import com.googlecode.commons.swing.validate.NotNullValidator;
@@ -83,7 +79,6 @@ public class FormDemo extends JPanel {
 		
 		txtFirstname = new JTextField();
 		txtFirstname.setName("First name");
-//		SizeUtils.setAllWidths(txtFirstname, 200);
 		notFirstname = new FieldNotifier();
 		panForm.addField("First name:", txtFirstname, notFirstname);
 		
@@ -153,7 +148,18 @@ public class FormDemo extends JPanel {
 	}
 	
 	private void onSave() {
-		String message = ToStringBuilder.reflectionToString(bindings.getModel(), ToStringStyle.MULTI_LINE_STYLE);
+		Customer customer = bindings.getModel();
+		
+		ToStringBuilder b = new ToStringBuilder(customer, ToStringStyle.MULTI_LINE_STYLE);
+		b.append("id", customer.getId());
+		b.append("fistName", customer.getFirstName());
+		b.append("lastName", customer.getLastName());
+		b.append("address", customer.getAddress());
+		b.append("eMailAddress", customer.geteMailAddress());
+		b.append("gender", customer.getGender());
+		b.append("newsletter", customer.isNewsletter());
+		
+		String message = b.toString();
 		JOptionPane.showMessageDialog(this, message);
 	}
 	
