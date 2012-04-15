@@ -3,6 +3,8 @@ package com.googlecode.commons.swing.demo;
 import javax.swing.JFrame;
 import javax.swing.JTabbedPane;
 
+import com.googlecode.commons.swing.demo.component.datetime.DateTimePanel;
+import com.googlecode.commons.swing.demo.component.datetime.MiniDateCalendarPanel;
 import com.googlecode.commons.swing.demo.entity.Customer;
 import com.googlecode.commons.swing.demo.form.FormDemo;
 import com.googlecode.commons.swing.demo.table.TableDemo;
@@ -26,6 +28,12 @@ public class MainFrame extends JFrame {
 		
 		FormDemo form = new FormDemo();
 		tabs.addTab("Form", new SourceTab(form, FormDemo.class, Customer.class));
+		
+		DateTimePanel datetime = new DateTimePanel();
+		tabs.addTab("JDateTimeField", new SourceTab(datetime, DateTimePanel.class));
+		
+		MiniDateCalendarPanel miniCalendar = new MiniDateCalendarPanel();
+		tabs.addTab("MiniDateCalendar", new SourceTab(miniCalendar, MiniDateCalendarPanel.class));
 	}
 	
 }
