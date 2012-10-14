@@ -55,7 +55,7 @@ public class Customer {
 	public static Customer createCustomer() {
 		Customer c1 = new Customer();
 		c1.setId(1L);
-		c1.setFirstName("Max");
+		c1.setFirstName("Maximilian Simon");
 		c1.setLastName("Mustermann");
 		c1.seteMailAddress("commons-swing@googlecode.com");
 		
